@@ -1,67 +1,121 @@
-// Custom Cursor
-const cursor = document.querySelector('.cursor');
-document.addEventListener('mousemove', (e) => {
-    cursor.style.left = e.clientX + "px";
-    cursor.style.top = e.clientY + "px";
-});
+:root {
+    --bg-dark: #0f0f1a;
+    --bg-light: #f5f5f5;
+    --text-dark: #ffffff;
+    --text-light: #111111;
+    --accent: #00f0ff;
+}
 
-// Scroll Reveal
-const reveals = document.querySelectorAll('.reveal');
-window.addEventListener('scroll', () => {
-    reveals.forEach(el => {
-        const windowHeight = window.innerHeight;
-        const revealTop = el.getBoundingClientRect().top;
-        if (revealTop < windowHeight - 100) {
-            el.classList.add('active');
-        }
-    });
-});
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: var(--bg-dark);
+    color: var(--text-dark);
+    overflow-x: hidden;
+    transition: 0.4s ease;
+}
 
-// Draggable Elements
-document.querySelectorAll('.draggable').forEach(element => {
-    element.addEventListener('mousedown', function (e) {
-        let shiftX = e.clientX - element.getBoundingClientRect().left;
-        let shiftY = e.clientY - element.getBoundingClientRect().top;
+body.light {
+    background: var(--bg-light);
+    color: var(--text-light);
+}
 
-        function moveAt(pageX, pageY) {
-            element.style.position = 'absolute';
-            element.style.left = pageX - shiftX + 'px';
-            element.style.top = pageY - shiftY + 'px';
-        }
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
 
-        function onMouseMove(e) {
-            moveAt(e.pageX, e.pageY);
-        }
+header {
+    position: fixed;
+    width: 100%;
+    padding: 20px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(15px);
+    background: rgba(0,0,0,0.3);
+    z-index: 1000;
+}
 
-        document.addEventListener('mousemove', onMouseMove);
+nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: inherit;
+    font-weight: 500;
+    position: relative;
+}
 
-        document.addEventListener('mouseup', function () {
-            document.removeEventListener('mousemove', onMouseMove);
-        }, { once: true });
-    });
+nav a::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: var(--accent);
+    transition: 0.3s;
+}
 
-    element.ondragstart = () => false;
-});
+nav a:hover::after {
+    width: 100%;
+}
 
-// Magnetic Button Effect
-const magneticBtn = document.querySelector('.magnetic');
-magneticBtn.addEventListener('mousemove', function(e) {
-    const rect = magneticBtn.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width/2;
-    const y = e.clientY - rect.top - rect.height/2;
-    magneticBtn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
-});
+.section {
+    min-height: 100vh;
+    padding: 150px 8%;
+    text-align: center;
+}
 
-magneticBtn.addEventListener('mouseleave', function() {
-    magneticBtn.style.transform = `translate(0px,0px)`;
-});
+.hero .title {
+    font-size: 3.5rem;
+}
 
-// Parallax Effect
-document.addEventListener('mousemove', (e) => {
-    document.querySelectorAll('.floating').forEach(shape => {
-        let speed = 0.02;
-        let x = (window.innerWidth - e.pageX * speed) / 100;
-        let y = (window.innerHeight - e.pageY * speed) / 100;
-        shape.style.transform = `translate(${x}px, ${y}px)`;
-    });
-});
+.magnetic {
+    margin-top: 30px;
+    padding: 15px 40px;
+    border-radius: 40px;
+    border: none;
+    background: var(--accent);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.cards {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.card {
+    width: 250px;
+    height: 250px;
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    background: rgba(255,255,255,0.05);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: grab;
+    transition: transform 0.4s ease;
+}
+
+.card:hover {
+    transform: scale(1.1);
+}
+
+#themeToggle {
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .cards {
+        flex-direction: column;
+        align-items: center;
+    }
+}
