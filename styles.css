@@ -1,0 +1,153 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e);
+    background-size: 400% 400%;
+    animation: gradientMove 12s ease infinite;
+    color: white;
+    overflow-x: hidden;
+    cursor: none;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+header {
+    position: fixed;
+    width: 100%;
+    padding: 20px 50px;
+    display: flex;
+    justify-content: space-between;
+    backdrop-filter: blur(15px);
+    background: rgba(255,255,255,0.05);
+    z-index: 1000;
+}
+
+nav a {
+    margin-left: 20px;
+    color: white;
+    text-decoration: none;
+    position: relative;
+}
+
+nav a::after {
+    content: '';
+    width: 0%;
+    height: 2px;
+    background: cyan;
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    transition: 0.3s;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+.section {
+    min-height: 100vh;
+    padding: 120px 50px;
+    text-align: center;
+}
+
+.hero h2 {
+    font-size: 3rem;
+}
+
+.card-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.card {
+    width: 200px;
+    height: 200px;
+    backdrop-filter: blur(20px);
+    background: rgba(255,255,255,0.1);
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: grab;
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.1);
+}
+
+.floating {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.6;
+}
+
+.shape1 {
+    width: 120px;
+    height: 120px;
+    background: cyan;
+    top: 20%;
+    left: 10%;
+}
+
+.shape2 {
+    width: 80px;
+    height: 80px;
+    background: magenta;
+    bottom: 15%;
+    right: 15%;
+}
+
+.shape3 {
+    width: 100px;
+    height: 100px;
+    background: yellow;
+    top: 60%;
+    left: 70%;
+}
+
+.cursor {
+    width: 20px;
+    height: 20px;
+    border: 2px solid cyan;
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: 0.1s;
+    z-index: 2000;
+}
+
+.magnetic {
+    margin-top: 30px;
+    padding: 15px 40px;
+    border: none;
+    border-radius: 30px;
+    background: cyan;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 1s ease;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
